@@ -24,11 +24,15 @@ public class dataDriven {
                 Row firstRow = row.next(); //move to / read the first row
 
                 Iterator<Cell> ce = firstRow.cellIterator(); //using Iterator cell. which row is collection of cells
+                int k = 0; //increment while loop
+                int column = 0; //initiate index of column
                 while (ce.hasNext()) {
                     Cell value = ce.next(); //move to / read the first cell
                     if (value.getStringCellValue().equalsIgnoreCase("TestCases")){
                         //desired column
+                        column = k;
                     }
+                    k++;
                 }
 
             }
