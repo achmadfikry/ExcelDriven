@@ -4,12 +4,15 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class dataDriven {
-    public static void main(String[] args) throws IOException {
+
+    public ArrayList<String> getData(String testcaseName) throws IOException {
+
+        ArrayList<String> a = new ArrayList<>();
 
         FileInputStream fis = new FileInputStream("/Users/telkomdev/Java/ExcelDriven/src/main/java/Framework/Main.java");
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -43,20 +46,22 @@ public class dataDriven {
                 //once column is identified, then scan entire testcase to identify purchase test case
                 while (rows.hasNext()) {
                     Row r = rows.next();
-                    if (r.getCell(column).getStringCellValue().equalsIgnoreCase("Purchase")){
+                    if (r.getCell(column).getStringCellValue().equalsIgnoreCase(testcaseName)){
 
                         //after you grab purchase test case row, pull all the data of that row & feed into test
                         Iterator<Cell> cv = r.cellIterator();
                         while (cv.hasNext()) {
-                            System.out.println(cv.next().getStringCellValue());
+                            a.add(cv.next().getStringCellValue());
                         }
-
                     }
                 }
-
             }
-
         }
+        return a;
+    }
+
+    public static void main(String[] args) throws IOException {
+
 
     }
 }
