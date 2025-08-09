@@ -1,5 +1,7 @@
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -51,7 +53,12 @@ public class dataDriven {
                         //after you grab purchase test case row, pull all the data of that row & feed into test
                         Iterator<Cell> cv = r.cellIterator();
                         while (cv.hasNext()) {
-                            a.add(cv.next().getStringCellValue());
+                            Cell c = cv.next();
+                            if (c.getCellType() == CellType.STRING){
+                                a.add(c.getStringCellValue());
+                            }else {
+                                a.add(NumberToTextConverter.toText(c.getNumericCellValue()));
+                            }
                         }
                     }
                 }
